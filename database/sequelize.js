@@ -28,25 +28,25 @@ const role = roleModel(sequelize, DataTypes);
 const picture = pictureModel(sequelize, DataTypes);
 
 // Add data when create database
-const initData = sequelize.sync({ force: true }).then(() => {
-  bcrypt.hash("poupiDu1995R2", 10).then((hash) => {
-    users.create({
-      email: "test@admin.fr",
-      firstname: "Jimmy",
-      lastname: "Carlier",
-      password: hash,
-      id_role: 1,
-    });
-  });
-  role
-    .create({
-      roleName: "Admin",
-    })
-    .then(() => {
-      role.create({
-        roleName: "Membre",
-      });
-    });
+const initData = sequelize.sync({}).then(() => {
+  // bcrypt.hash("poupiDu1995R2", 10).then((hash) => {
+  //   users.create({
+  //     email: "test@admin.fr",
+  //     firstname: "Jimmy",
+  //     lastname: "Carlier",
+  //     password: hash,
+  //     id_role: 1,
+  //   });
+  // });
+  // role
+  //   .create({
+  //     roleName: "Admin",
+  //   })
+  //   .then(() => {
+  //     role.create({
+  //       roleName: "Membre",
+  //     });
+  //   });
 });
 
 // Export model for CRUD create

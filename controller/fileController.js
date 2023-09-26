@@ -63,12 +63,55 @@ exports.publishedPicture = (req, res) => {
     });
 };
 
-exports.unpublishedPicture = async (req, res) => {
+exports.unpublishedPicture = (req, res) => {
+  if (req.user.role != ADMIN) {
+    res.sendStatus(401);
+  }
   picture
     .findAll({ where: { status: "rejete" } })
     .then((photos) => {
       res.status(200).json({
         data: photos,
+      });
+    })
+    .catch(() => {
+      res.sendStatus(400);
+    });
+};
+
+exports.picturesOfUser = (req, res) => {
+  picture
+    .findAll({
+      where: {
+        id_user: req.user.id,
+      },
+    })
+    .then((pictures) => {
+      res.status(200).json({
+        data: pictures,
+      });
+    })
+    .catch(() => {
+      res.sendStatus(400);
+    });
+};
+
+exports.mostVoted = (req, res) => {
+  picture
+    .findAll({
+      where: { status: "publie" },
+    })
+    .then((photos) => {
+      const array = [];
+      photos.sort(function (a, b) {
+        return b.votes - a.votes;
+      });
+      for (i = 0; i < 5; i++) {
+        array.push(photos[i]);
+      }
+      console.log(array);
+      res.status(200).json({
+        data: array,
       });
     })
     .catch(() => {
