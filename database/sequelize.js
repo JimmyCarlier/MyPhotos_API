@@ -1,8 +1,10 @@
 // Import package
-const { Sequelize, Model, DataTypes } = require("sequelize");
+const { Sequelize, DataTypes } = require("sequelize");
 const usersModel = require("../model/usersModel");
 const roleModel = require("../model/roleModel");
 const pictureModel = require("../model/pictureModel");
+const cguModel = require("../model/cguModel");
+const cguText = require("./cgu.json");
 const bcrypt = require("bcrypt");
 
 // Connection sequelize with database
@@ -26,6 +28,7 @@ testConnection();
 const users = usersModel(sequelize, DataTypes);
 const role = roleModel(sequelize, DataTypes);
 const picture = pictureModel(sequelize, DataTypes);
+const cgu = cguModel(sequelize, DataTypes);
 
 // Add data when create database
 const initData = sequelize.sync({}).then(() => {
@@ -47,6 +50,9 @@ const initData = sequelize.sync({}).then(() => {
   //       roleName: "Membre",
   //     });
   //   });
+  // cgu.create({
+  //   texte: cguText.text,
+  // });
 });
 
 // Export model for CRUD create
