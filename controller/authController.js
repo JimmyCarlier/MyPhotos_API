@@ -4,22 +4,26 @@ const jwt = require("jsonwebtoken");
 const SECRET_KEY = "secureYourConnect";
 
 exports.signUp = (req, res) => {
-  bcrypt.hash(req.body.password, 10).then((hash) => {
-    users
-      .create({
-        email: req.body.email,
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        password: hash,
-        id_role: 2,
-      })
-      .then(() => {
-        res.sendStatus(200);
-      })
-      .catch(() => {
-        res.sendStatus(400);
-      });
-  });
+  if (req.body.password === req.body.verifPassword) {
+    bcrypt.hash(req.body.password, 10).then((hash) => {
+      users
+        .create({
+          email: req.body.email,
+          firstname: req.body.firstname,
+          lastname: req.body.lastname,
+          password: hash,
+          id_role: 2,
+        })
+        .then(() => {
+          res.sendStatus(200);
+        })
+        .catch(() => {
+          res.sendStatus(400);
+        });
+    });
+  } else {
+    res.sendStatus(418);
+  }
 };
 
 exports.signIn = (req, res) => {

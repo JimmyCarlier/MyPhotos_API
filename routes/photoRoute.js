@@ -3,6 +3,7 @@ const Router = express.Router();
 const fileController = require("../controller/fileController");
 const multer = require("../controller/multer-config");
 const middleware = require("../controller/authController");
+
 Router.route("/bestPictures").get(fileController.mostVoted);
 Router.route("/userPicture").get(
   middleware.isConnect,

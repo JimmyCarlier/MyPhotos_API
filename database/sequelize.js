@@ -4,8 +4,6 @@ const usersModel = require("../model/usersModel");
 const roleModel = require("../model/roleModel");
 const pictureModel = require("../model/pictureModel");
 const cguModel = require("../model/cguModel");
-const cguText = require("./cgu.json");
-const bcrypt = require("bcrypt");
 
 // Connection sequelize with database
 const sequelize = new Sequelize("myphotos", "root", "", {
@@ -62,4 +60,5 @@ module.exports = {
   users,
   role,
   picture,
+  cgu,
 };

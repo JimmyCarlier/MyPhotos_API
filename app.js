@@ -5,6 +5,7 @@ const app = express();
 const port = 3000;
 const userRoute = require("./routes/userRoute");
 const photoRoute = require("./routes/photoRoute");
+const cguRoute = require("./routes/cguRoute");
 
 // Connect package with express
 app.use(morgan("dev"));
@@ -13,6 +14,7 @@ app.use(express.json());
 
 app.use("/user", userRoute);
 app.use("/file", photoRoute);
+app.use("/cgu", cguRoute);
 
 // If connection lost
 app.use((req, res) => {
