@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const { picture } = require("../database/sequelize");
 
 const ADMIN = 1;
@@ -20,29 +21,27 @@ exports.uploadFile = (req, res) => {
 };
 
 exports.updateFile = (req, res) => {
-  console.log("passé");
   if (req.user.role != ADMIN) {
     res.sendStatus(401);
   }
-  picture
-    .findByPk(req.params.id)
-    .then((file) => {
-      console.log(file);
-      file
-        .update({
-          status: !req.body.status ? file.status : req.body.status,
-          votes: !req.body.votes ? file.votes : req.body.votes,
+  const updatePhotos = [...req.body.ids];
+    picture
+          .update({
+            status: req.body.status,
+          },
+          {
+            where : {
+              id: {
+                  [Op.in]: updatePhotos
+              }                           
+          }
         })
-        .then(() => {
-          res.sendStatus(200);
-        })
-        .catch(() => {
-          res.sendStatus(400);
-        });
-    })
-    .catch(() => {
-      res.sendStatus(500);
-    });
+          .then(() => {
+            res.sendStatus(200);
+          })
+          .catch(() => {
+            res.sendStatus(400);
+          });
 };
 
 exports.publishedPicture = (req, res) => {

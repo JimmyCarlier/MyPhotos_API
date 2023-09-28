@@ -22,7 +22,7 @@ Router.route("/upload").post(
   fileController.uploadFile
 );
 
-Router.route("/update/:id").put(
+Router.route("/update").put(
   middleware.isConnect,
   fileController.updateFile
 );
