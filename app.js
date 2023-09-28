@@ -2,6 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const app = express();
+const path = require("path");
 const port = 3000;
 const userRoute = require("./routes/userRoute");
 const photoRoute = require("./routes/photoRoute");
@@ -11,6 +12,7 @@ const cguRoute = require("./routes/cguRoute");
 app.use(morgan("dev"));
 app.use(cors());
 app.use(express.json());
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 app.use("/user", userRoute);
 app.use("/file", photoRoute);

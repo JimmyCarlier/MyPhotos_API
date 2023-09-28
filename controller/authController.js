@@ -17,8 +17,8 @@ exports.signUp = (req, res) => {
         .then(() => {
           res.sendStatus(200);
         })
-        .catch(() => {
-          res.sendStatus(400);
+        .catch((error) => {
+          res.status(400).json({ message: error.message });
         });
     });
   } else {
