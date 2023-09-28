@@ -68,7 +68,7 @@ exports.unpublishedPicture = (req, res) => {
     res.sendStatus(401);
   }
   picture
-    .findAll({ where: { status: "rejete" } })
+    .findAll({ where: { status: "nonpublie" } })
     .then((photos) => {
       res.status(200).json({
         data: photos,
