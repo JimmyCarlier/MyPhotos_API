@@ -30,7 +30,8 @@ exports.updateFile = (req, res) => {
       console.log(file);
       file
         .update({
-          status: req.body.status,
+          status: !req.body.status ? file.status : req.body.status,
+          votes: !req.body.votes ? file.votes : req.body.votes,
         })
         .then(() => {
           res.sendStatus(200);
