@@ -4,20 +4,24 @@ const { picture } = require("../database/sequelize");
 const ADMIN = 1;
 
 exports.uploadFile = (req, res) => {
-  picture
-    .create({
-      file: req.file.path,
-      description: req.body.description,
-      vote: 0,
-      status: "nonpublie",
-      id_user: req.user.id,
-    })
-    .then(() => {
-      res.sendStatus(200);
-    })
-    .catch(() => {
-      res.sendStatus(400);
-    });
+  const myFiles = [...req.files];
+  const myDescriptions = [...req.body.description];
+  myFiles.map((el,i) => {
+    picture
+      .create({
+        file: el.path,
+        description: myDescriptions[i],
+        vote: 0,
+        status: "nonpublie",
+        id_user: req.user.id,
+      })
+      .then(() => {
+        res.sendStatus(200);
+      })
+      .catch(() => {
+        res.sendStatus(400);
+      });
+  });
 };
 
 exports.updateFile = (req, res) => {

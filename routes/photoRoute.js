@@ -18,7 +18,7 @@ Router.route("/unpublished").get(
 
 Router.route("/upload").post(
   middleware.isConnect,
-  multer.single("file"),
+  multer.array("file", 10),
   fileController.uploadFile
 );
 
