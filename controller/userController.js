@@ -23,9 +23,7 @@ exports.updatePassword = (req, res) => {
                 });
             }
           } else {
-            res.status(405).json({
-              message: "error",
-            });
+            res.sendStatus(400);
           }
         })
         .catch(() => {

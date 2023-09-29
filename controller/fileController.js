@@ -29,23 +29,46 @@ exports.updateFile = (req, res) => {
     res.sendStatus(401);
   }
   const updatePhotos = [...req.body.ids];
-    picture
-          .update({
-            status: req.body.status,
+  picture
+    .update(
+      {
+        status: req.body.status,
+      },
+      {
+        where: {
+          id: {
+            [Op.in]: updatePhotos,
           },
-          {
-            where : {
-              id: {
-                  [Op.in]: updatePhotos
-              }                           
-          }
+        },
+      }
+    )
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch(() => {
+      res.sendStatus(400);
+    });
+};
+
+exports.updateVote = (req, res) => {
+  console.log("coucou");
+  picture
+    .findByPk(req.params.id)
+    .then((photo) => {
+      photo
+        .update({
+          votes: photo.votes + 1,
         })
-          .then(() => {
-            res.sendStatus(200);
-          })
-          .catch(() => {
-            res.sendStatus(400);
-          });
+        .then(() => {
+          res.sendStatus(200);
+        })
+        .catch(() => {
+          res.sendStatus(400);
+        });
+    })
+    .catch(() => {
+      res.sendStatus(400);
+    });
 };
 
 exports.publishedPicture = (req, res) => {
