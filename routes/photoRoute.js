@@ -22,8 +22,7 @@ Router.route("/upload").post(
   fileController.uploadFile
 );
 
-Router.route("/update").put(
-  middleware.isConnect,
-  fileController.updateFile
-);
+Router.route("/update").put(middleware.isConnect, fileController.updateFile);
+
+Router.route("/updateVote/:id").put(fileController.updateVote);
 module.exports = Router;
