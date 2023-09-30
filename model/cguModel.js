@@ -5,6 +5,6 @@ module.exports = (sequelize, datatypes) => {
       autoIncrement: true,
       primaryKey: true,
     },
-    texte: datatypes.TEXT("long"),
+    texte: datatypes.TEXT,
   });
 };

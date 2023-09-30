@@ -38,6 +38,8 @@ exports.signIn = (req, res) => {
               {
                 data: user.email,
                 role: user.id_role,
+                firstname: user.firstname,
+                lastname: user.lastname,
                 id: user.id,
               },
               SECRET_KEY,

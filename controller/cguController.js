@@ -18,8 +18,9 @@ exports.updateCgu = (req, res) => {
   if (req.user.role != ADMIN) {
     res.sendStatus(401);
   }
+  const myCgu = req.body.cgu;
   cgu
-    .update({ texte: req.body.cgu }, { where: { id: 1 } })
+    .update({ texte: myCgu }, { where: { id: 1 } })
     .then(() => {
       res.sendStatus(200);
     })

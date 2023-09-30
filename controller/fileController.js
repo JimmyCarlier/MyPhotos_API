@@ -5,8 +5,9 @@ const ADMIN = 1;
 
 exports.uploadFile = (req, res) => {
   const myFiles = [...req.files];
+  console.log(myFiles);
   const myDescriptions = [...req.body.description];
-  myFiles.map((el,i) => {
+  const myFileUpload = myFiles.map((el,i) => {
     picture
       .create({
         file: el.path,
@@ -15,13 +16,14 @@ exports.uploadFile = (req, res) => {
         status: "nonpublie",
         id_user: req.user.id,
       })
-      .then(() => {
-        res.sendStatus(200);
-      })
-      .catch(() => {
-        res.sendStatus(400);
-      });
-  });
+    })
+    Promise.all(myFileUpload)
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch(() => {
+      res.sendStatus(400);
+    });
 };
 
 exports.updateFile = (req, res) => {

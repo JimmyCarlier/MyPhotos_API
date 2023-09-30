@@ -4,7 +4,8 @@ const usersModel = require("../model/usersModel");
 const roleModel = require("../model/roleModel");
 const pictureModel = require("../model/pictureModel");
 const cguModel = require("../model/cguModel");
-
+const bcrypt = require("bcrypt");
+const cguText = require("../database/cgu.json");
 // Connection sequelize with database
 const sequelize = new Sequelize("myphotos", "root", "", {
   host: "localhost",
@@ -29,7 +30,9 @@ const picture = pictureModel(sequelize, DataTypes);
 const cgu = cguModel(sequelize, DataTypes);
 
 // Add data when create database
-const initData = sequelize.sync({}).then(() => {
+const initData = sequelize.sync({ 
+  // force : true
+}).then(() => {
   // bcrypt.hash("poupiDu1995R2", 10).then((hash) => {
   //   users.create({
   //     email: "test@admin.fr",
