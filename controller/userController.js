@@ -34,3 +34,31 @@ exports.updatePassword = (req, res) => {
       res.sendStatus(400);
     });
 };
+
+exports.forgottenPassword = (req, res) => {
+  users
+    .findOne({ where: { email: req.body.email } })
+    .then((account) => {
+      if (!account) {
+        res.sendStatus(401);
+      } else {
+        if (req.body.password === req.body.confirmPassword) {
+          console.log(account);
+          bcrypt
+            .hash(req.body.password, 10)
+            .then((hash) => {
+              account.update({
+                password: hash,
+              });
+              res.sendStatus(200);
+            })
+            .catch(() => {
+              res.sendStatus(400);
+            });
+        }
+      }
+    })
+    .catch(() => {
+      res.sendStatus(500);
+    });
+};
